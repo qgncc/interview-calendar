@@ -8,7 +8,7 @@ const app = express();
 const host = 'localhost';
 const port = 8081;
 
-app.use(express.static());
+app.use(express.static("./build"));
 app.use(express.json());
 app.use(cors());
 app.use("/api", apiRouter);
