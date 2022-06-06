@@ -5,7 +5,6 @@ const cors = require('cors');
 
 const app = express();
 
-const host = 'localhost';
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 8081;
@@ -18,6 +17,6 @@ app.use("/api", apiRouter);
 
 const server = http.createServer(app);
 
-server.listen(port, host, () => {
-  console.log(`Server running at http://${host}:${port}/`);
+server.listen(port, () => {
+  console.log(`Server running at ${port}`);
 });
