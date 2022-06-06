@@ -6,7 +6,10 @@ const cors = require('cors');
 const app = express();
 
 const host = 'localhost';
-const port = 8081;
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8081;
+}
 
 app.use(express.static("./build"));
 app.use(express.json());
