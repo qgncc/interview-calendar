@@ -10,23 +10,16 @@ const client = new Client({
 
 client.connect();
 
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
-  if (err) console.log(err);
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
 
 
 function post_req(req,res){
-	console.log("add")
+	console.log("add: ",req.body);
 }
 function del_req(req,res){
-	console.log("del`")
+	console.log("del: ", req.body);
 }
 function get_req(req,res){
-	console.log("get")
+	console.log("get: ", req.params.date);
 }
 
 module.exports={
