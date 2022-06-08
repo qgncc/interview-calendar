@@ -10,9 +10,9 @@ if (port == null || port == "") {
   port = 8081;
 }
 
+app.use(cors());
 app.use(express.static("./build"));
 app.use(express.json());
-app.use(cors());
 app.use("/api", apiRouter);
 
 const server = http.createServer(app);

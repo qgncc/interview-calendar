@@ -22,7 +22,7 @@ const timeReg=/[0-1][0-9]|[2][0-3]/;
 
 function dateToString(date){
   let str = "" +date.getFullYear()+
-            "-"+("0"+date.getMonth()).slice(-2)+
+            "-"+("0"+(1+date.getMonth())).slice(-2)+
             "-"+("0"+date.getDate()).slice(-2);
   return str;
 }
@@ -32,8 +32,7 @@ function prepareData(data){
   for (let row of data.rows) {
     //TODO can be optimized
     let date = new Date(row.date);
-    let hour = parseInt(row.time.slice(2));
-
+    let hour = parseInt(row.time.slice(0,2));
     let mask = 1<<hour;
     appointments[date.getDay()]^=mask;
   }
