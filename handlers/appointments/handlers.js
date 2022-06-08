@@ -50,7 +50,7 @@ function post_req(req,res){
     console.log("Wrong date/time format");
     res.status(400).send('Wrong date/time format').end();
   }else{
-    client.query(`INSERT INTO interviews (date, time) VALUES (${date},${time}:00:00)`,(err,data)=>{
+    client.query(`INSERT INTO interviews (date, time) VALUES ('${date}','${time}:00:00)'`,(err,data)=>{
       if(err){
         console.log(err);
         res.status(500).end();
@@ -72,7 +72,7 @@ function del_req(req,res){
     console.log("Wrong date/time format");
     res.status(400).send('Wrong date/time format').end();
   }else{
-    client.query(`DELETE FROM interviews WHERE date=${date} AND time=${time}:00:00`,(err,data)=>{
+    client.query(`DELETE FROM interviews WHERE date='${date}' AND time='${time}:00:00'`,(err,data)=>{
       if(err){
         console.log(err);
         res.status(500).end();
