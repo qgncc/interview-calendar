@@ -1,12 +1,14 @@
 const { Client } = require('pg');
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
-});
-client.connect();
+);
+// client.connect();
+
 const dateReg=/[0-9]{4}-[0-1][0-9]-[0-3][1-9]/;
 const timeReg=/[0-1][0-9]|[2][0-3]/;
 
@@ -58,7 +60,7 @@ function del_req(req,res){
 
   if(
     !dateReg.test(date)
-    ||!timeReg.test(req.params.time)
+    ||!timeReg.test(time)
     ){
     console.log("Wrong date/time format");
     res.status(400).send('Wrong date/time format').end();
@@ -79,7 +81,7 @@ function get_req(req,res){
   let lastDayOfWeek = new Date(req.params.date);
   lastDayOfWeek.setDate(lastDayOfWeek.getDate()+6)
   let lastDayOfWeekStr = dateToString(lastDayOfWeek);
-  if(!req.params.date,match(dateReg)){
+  if(!dateReg.test(req.params.date)){
     console.log("Wrong date format");
     res.status(400).send('Wrong date format').end()
   }else{
