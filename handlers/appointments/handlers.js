@@ -1,15 +1,22 @@
 const { Client } = require('pg');
 
-const client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  }
-);
-// client.connect();
+// const client = new Client({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//       rejectUnauthorized: false
+//     }
+//   }
+// );
+client = new Client({
+    host: 'localhost',
+    port:'5432',
+    user: 'me',
+    database: 'testtask',
+});
 
-const dateReg=/[0-9]{4}-[0-1][0-9]-[0-3][1-9]/;
+client.connect();
+
+const dateReg=/[0-9]{4}-[0-1][0-9]-[0-3][0-9]/;
 const timeReg=/[0-1][0-9]|[2][0-3]/;
 
 function dateToString(date){
@@ -21,7 +28,7 @@ function dateToString(date){
 
 function prepareData(data){
   let appointments=[0,0,0,0,0,0,0];
-  for (let row of data) {
+  for (let row of data.rows) {
     //TODO can be optimized
     let date = new Date(row.date);
     let hour = parseInt(row.time.slice(2));
@@ -85,11 +92,12 @@ function get_req(req,res){
     console.log("Wrong date format");
     res.status(400).send('Wrong date format').end()
   }else{
-    client.query(`SELECT * FROM WHERE date BETWEEN '${req.params.date}' AND '${lastDayOfWeekStr}'`,(err,data)=>{
+    client.query(`SELECT * FROM interviews WHERE date BETWEEN '${req.params.date}' AND '${lastDayOfWeekStr}'`,(err,data)=>{
       if(err){
         console.log(err);
         res.status(500).end();
       }else{
+        let appointments = prepareData(data);
         res.json({appointments}).end();
       }
     });
