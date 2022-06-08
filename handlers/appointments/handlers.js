@@ -90,7 +90,6 @@ function get_req(req,res){
         console.log(err);
         res.status(500).end();
       }else{
-        let appointments = prepareData(data)
         res.json({appointments}).end();
       }
     });
