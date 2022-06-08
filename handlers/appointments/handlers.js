@@ -7,7 +7,7 @@ const client = new Client({
     }
   }
 );
-// client = new Client({
+// const client = new Client({
 //     host: 'localhost',
 //     port:'5432',
 //     user: 'me',
@@ -50,7 +50,7 @@ function post_req(req,res){
     console.log("Wrong date/time format");
     res.status(400).send('Wrong date/time format').end();
   }else{
-    client.query(`INSERT INTO interviews (date, time) VALUES ('${date}','${time}:00:00)'`,(err,data)=>{
+    client.query(`INSERT INTO interviews (date, time) VALUES ('${date}','${time}:00:00')`,(err,data)=>{
       if(err){
         console.log(err);
         res.status(500).end();
